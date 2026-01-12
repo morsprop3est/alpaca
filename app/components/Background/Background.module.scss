@@ -1,0 +1,75 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.alpacaLeft,
+.alpacaRight {
+  position: absolute;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alpacaLeft {
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.alpacaLeft .alpacaIcon {
+  transform: scaleX(-1);
+}
+
+.alpacaRight {
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.alpacaIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .alpacaLeft,
+  .alpacaRight {
+    width: 80px;
+    height: 80px;
+  }
+
+  .alpacaLeft {
+    left: 10px;
+  }
+
+  .alpacaRight {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alpacaLeft,
+  .alpacaRight {
+    width: 60px;
+    height: 60px;
+  }
+
+  .alpacaLeft {
+    left: 5px;
+  }
+
+  .alpacaRight {
+    right: 5px;
+  }
+}
+

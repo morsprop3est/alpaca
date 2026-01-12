@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  text-align: center;
+}
+
+.title {
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  margin-bottom: 24px;
+}
+
+.text {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.link {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.link:hover {
+  background: #383838;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 80px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}
+

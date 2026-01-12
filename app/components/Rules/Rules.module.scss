@@ -1,0 +1,170 @@
+.rules {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 42px;
+  color: #000;
+  text-align: center;
+  margin: 0;
+}
+
+.cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 42px;
+  color: #000;
+  margin: 0;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.benefit {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 42px;
+  color: #000;
+  position: relative;
+  padding-left: 20px;
+}
+
+.benefit::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #000;
+  border-radius: 50%;
+}
+
+.footerText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #000;
+  text-align: center;
+  margin: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .rules {
+    padding: 80px 0;
+  }
+
+  .content {
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .cards {
+    gap: 20px;
+  }
+
+  .card {
+    padding: 28px;
+    gap: 18px;
+  }
+
+  .cardTitle {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .benefit {
+    font-size: 18px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .rules {
+    padding: 60px 0;
+  }
+
+  .content {
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  .benefit {
+    font-size: 16px;
+    line-height: 28px;
+  }
+}
+
