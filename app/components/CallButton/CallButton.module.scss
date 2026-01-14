@@ -1,0 +1,209 @@
+.callButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #F76F0B;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(247, 111, 11, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.callButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(247, 111, 11, 0.5);
+}
+
+.callButton:active {
+  transform: scale(0.95);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalContent {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  padding: 40px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 32px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: #F76F0B;
+}
+
+.modalHeader {
+  margin-bottom: 30px;
+}
+
+.modalTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 100%;
+  color: #000;
+  margin: 0 0 16px 0;
+}
+
+.modalText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #000;
+  margin: 0;
+}
+
+.phoneInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding: 16px 24px;
+  background: #f5f5f5;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+
+.phoneInfo:active {
+  transform: scale(0.98);
+}
+
+.phoneLink {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #F76F0B;
+  text-decoration: none;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 14px 28px;
+  background: #F76F0B;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 100%;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.submitBtn:hover {
+  background: #e65e00;
+  transform: scale(0.98);
+}
+
+.submitBtn:active {
+  transform: scale(0.95);
+}
+
+.submitBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitBtn:disabled:hover {
+  background: #ccc;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .callButton {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .modalContent {
+    padding: 24px;
+    max-height: 95vh;
+  }
+
+  .closeBtn {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 28px;
+  }
+
+  .modalTitle {
+    font-size: 28px;
+  }
+
+  .modalText {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .phoneInfo {
+    padding: 12px;
+  }
+
+  .phoneLink {
+    font-size: 18px;
+  }
+}

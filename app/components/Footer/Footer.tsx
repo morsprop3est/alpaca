@@ -61,7 +61,7 @@ export default function Footer() {
         <div className={styles.divider}></div>
         <div className={styles.bottom}>
           <div className={styles.copyright}>
-            Copyright © 2025 ALPACA HOUSE
+            Copyright © {new Date().getFullYear()} ALPACA HOUSE
           </div>
           <div className={styles.created}>
             Created by Chumak Roma

@@ -124,6 +124,41 @@
   transform: scale(1.02);
 }
 
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.playButton:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.playCircle {
+  width: 100px;
+  height: 100px;
+  background: #000;
+  opacity: 0.8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.playTriangle {
+  width: 0;
+  height: 0;
+  border-left: 24px solid #fff;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 4px;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .howToGet {
     padding: 80px 0;
@@ -195,6 +230,18 @@
   .image {
     border-width: 4px;
     box-sizing: border-box;
+  }
+
+  .playCircle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .playTriangle {
+    border-left-width: 18px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    margin-left: 3px;
   }
 }
 

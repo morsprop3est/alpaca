@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import styles from "./Main.module.scss";
 import containerStyles from "../../styles/container.module.scss";
 import Input from "../Input/Input";
@@ -15,22 +16,69 @@ export default function Main({ id }: MainProps) {
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!leftRef.current || !rightRef.current) return;
+
+    const tl = gsap.timeline({ delay: 2.5 });
+
+    tl.fromTo(
+      leftRef.current,
+      {
+        x: -100,
+        opacity: 0,
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+      }
+    )
+      .fromTo(
+        rightRef.current,
+        {
+          x: 100,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.4"
+      );
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
   return (
     <main id={id} className={styles.main}>
       <div className={containerStyles.container}>
         <div className={styles.content}>
-          <div className={styles.left}>
+          <div ref={leftRef} className={styles.left}>
             <div className={styles.location}>
-              <span className={styles.dot}></span>
-              <span>Козлин, Рівненська область.</span>
+              <a 
+                href="https://www.google.com/maps/search/Козлин,+Рівненська+область" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.locationLink}
+              >
+                <span className={styles.dot}></span>
+                <span>Козлин, Рівненська область.</span>
+              </a>
             </div>
             <h1 className={styles.title}>Тиша лісу, тепло чану, погляд альпаки</h1>
             <p className={styles.description}>
               Запрошуємо вас на незабутній відпочинок у затишних будиночках серед лісу! Це ідеальне місце для тих, хто мріє втекти від міського шуму, перезавантажитися і насолодитися спокоєм природи.
             </p>
           </div>
-          <div className={styles.right}>
+          <div ref={rightRef} className={styles.right}>
             <div className={styles.bookingHeader}>
               <div className={styles.bookingTitle}>Виберіть дати</div>
               <div className={styles.bookingSubtitle}>Дата заїзду та дата виїзду</div>

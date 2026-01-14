@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./GuestPhotos.module.scss";
@@ -40,6 +40,14 @@ export default function GuestPhotos({ id }: GuestPhotosProps) {
   const mainPhotoRef = useRef<HTMLDivElement>(null);
   const rightPhotosRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [wasGalleryOpen, setWasGalleryOpen] = useState(false);
+  const galleryModalRef = useRef<HTMLDivElement>(null);
+  const galleryContentRef = useRef<HTMLDivElement>(null);
+  const fullscreenModalRef = useRef<HTMLDivElement>(null);
+  const fullscreenImageWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current || !headerRef.current || !mainPhotoRef.current || !rightPhotosRef.current || !footerRef.current) return;
@@ -128,6 +136,83 @@ export default function GuestPhotos({ id }: GuestPhotosProps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isFullscreenOpen) return;
+
+    if (fullscreenImageWrapperRef.current) {
+      gsap.fromTo(
+        fullscreenImageWrapperRef.current,
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        }
+      );
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsFullscreenOpen(false);
+        if (wasGalleryOpen) {
+          setIsGalleryOpen(true);
+          setWasGalleryOpen(false);
+        }
+      } else if (e.key === 'ArrowLeft') {
+        setCurrentPhotoIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+      } else if (e.key === 'ArrowRight') {
+        setCurrentPhotoIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isFullscreenOpen, isGalleryOpen]);
+
+  useEffect(() => {
+    if (!isGalleryOpen) return;
+
+    if (galleryContentRef.current) {
+      gsap.fromTo(
+        galleryContentRef.current,
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        }
+      );
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsGalleryOpen(false);
+        setWasGalleryOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isGalleryOpen]);
+
   return (
     <section id={id} ref={sectionRef} className={styles.guestPhotos}>
       <div className={containerStyles.container}>
@@ -139,14 +224,21 @@ export default function GuestPhotos({ id }: GuestPhotosProps) {
             </p>
           </div>
           <div className={styles.right}>
-            <button ref={buttonRef} className={styles.viewAllButton}>
+            <button ref={buttonRef} className={styles.viewAllButton} onClick={() => {
+              setIsGalleryOpen(true);
+              setWasGalleryOpen(false);
+            }}>
               Переглянути всі
               <Icon src="/icons/arrow_right.svg" size={24} className={styles.arrowIcon} />
             </button>
           </div>
         </div>
         <div className={styles.photosGrid}>
-          <div ref={mainPhotoRef} className={styles.mainPhoto}>
+          <div ref={mainPhotoRef} className={styles.mainPhoto} style={{ cursor: 'pointer' }} onClick={() => {
+            setCurrentPhotoIndex(0);
+            setWasGalleryOpen(false);
+            setIsFullscreenOpen(true);
+          }}>
             <Image
               src={mainPhoto.src}
               alt={mainPhoto.alt}
@@ -158,8 +250,12 @@ export default function GuestPhotos({ id }: GuestPhotosProps) {
             <div className={styles.photoCount}>{totalPhotos}+</div>
           </div>
           <div ref={rightPhotosRef} className={styles.rightPhotos}>
-            {rightPhotos.map((photo) => (
-              <div key={photo.id} className={styles.photoWrapper}>
+            {rightPhotos.map((photo, index) => (
+              <div key={photo.id} className={styles.photoWrapper} style={{ cursor: 'pointer' }} onClick={() => {
+                setCurrentPhotoIndex(index + 1);
+                setWasGalleryOpen(false);
+                setIsFullscreenOpen(true);
+              }}>
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -177,6 +273,94 @@ export default function GuestPhotos({ id }: GuestPhotosProps) {
           </p>
         </div>
       </div>
+
+      {isGalleryOpen && (
+        <div ref={galleryModalRef} className={styles.galleryModal} onClick={() => {
+          setIsGalleryOpen(false);
+          setWasGalleryOpen(false);
+        }}>
+          <div ref={galleryContentRef} className={styles.galleryContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.galleryHeader}>
+              <button className={styles.closeBtn} onClick={() => {
+                setIsGalleryOpen(false);
+                setWasGalleryOpen(false);
+              }}>×</button>
+            </div>
+            <div className={styles.galleryGrid}>
+              {photos.map((photo, index) => (
+                <div
+                  key={photo.id}
+                  className={styles.galleryItem}
+                  onClick={() => {
+                    setCurrentPhotoIndex(index);
+                    setWasGalleryOpen(true);
+                    setIsFullscreenOpen(true);
+                  }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={300}
+                    height={300}
+                    className={styles.galleryPhoto}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isFullscreenOpen && (
+        <div ref={fullscreenModalRef} className={styles.fullscreenModal} onClick={() => {
+          setIsFullscreenOpen(false);
+          if (wasGalleryOpen) {
+            setIsGalleryOpen(true);
+            setWasGalleryOpen(false);
+          }
+        }}>
+          <div className={styles.fullscreenHeader}>
+            <button className={styles.fullscreenCloseBtn} onClick={(e) => {
+              e.stopPropagation();
+              setIsFullscreenOpen(false);
+              if (wasGalleryOpen) {
+                setIsGalleryOpen(true);
+                setWasGalleryOpen(false);
+              }
+            }}>×</button>
+          </div>
+          <button
+            className={styles.fullscreenPrevBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentPhotoIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+            }}
+          >
+            <Icon src="/icons/arrow_right.svg" size={32} color="#fff" className={styles.arrowLeft} />
+          </button>
+          <div ref={fullscreenImageWrapperRef} className={styles.fullscreenImageWrapper} onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={photos[currentPhotoIndex].src}
+              alt={photos[currentPhotoIndex].alt}
+              width={1200}
+              height={800}
+              className={styles.fullscreenImage}
+            />
+          </div>
+          <button
+            className={styles.fullscreenNextBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentPhotoIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+            }}
+          >
+            <Icon src="/icons/arrow_right.svg" size={32} color="#fff" />
+          </button>
+          <div className={styles.fullscreenCounter}>
+            {currentPhotoIndex + 1} / {photos.length}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

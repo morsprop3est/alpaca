@@ -21,10 +21,7 @@ export default function HowToGet({ id }: HowToGetProps) {
 
   const handleMapButtonClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const element = document.getElementById("main");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    window.open('https://www.google.com/maps/search/Козлин,+Рівненська+область', '_blank', 'noopener,noreferrer');
   };
 
   useEffect(() => {
@@ -103,6 +100,11 @@ export default function HowToGet({ id }: HowToGetProps) {
                 height={400}
                 className={styles.image}
               />
+              <div className={styles.playButton}>
+                <div className={styles.playCircle}>
+                  <div className={styles.playTriangle}></div>
+                </div>
+              </div>
             </a>
           </div>
         </div>

@@ -6,10 +6,13 @@ import HowToGet from "./components/HowToGet/HowToGet";
 import Footer from "./components/Footer/Footer";
 import Reviews from "./components/Reviews/Reviews";
 import GuestPhotos from "./components/GuestPhotos/GuestPhotos";
+import SplashScreen from "./components/SplashScreen/SplashScreen";
+import CallButton from "./components/CallButton/CallButton";
 
 export default function Home() {
   return (
     <>
+      <SplashScreen />
       <Header />
       <Main id="main" />
       <About id="about" />
@@ -18,6 +21,7 @@ export default function Home() {
       <Reviews id="reviews" />
       <GuestPhotos id="guestphotos" />
       <Footer />
+      <CallButton />
     </>
   );
 }
