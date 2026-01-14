@@ -22,7 +22,7 @@ export default function CallButton() {
       console.error('Failed to copy:', err);
     }
   };
-  const iconRef = useRef<HTMLSpanElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isModalOpen) return;
