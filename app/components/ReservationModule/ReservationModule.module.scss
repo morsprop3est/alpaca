@@ -1,0 +1,36 @@
+.reservationModule {
+  width: 100%;
+  padding: 100px 0;
+  background: #fff;
+}
+
+.content {
+  width: 100%;
+}
+
+.iframe {
+  width: 100%;
+  min-height: 1600px;
+  border: none;
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .reservationModule {
+    padding: 80px 0;
+  }
+
+  .iframe {
+    min-height: 700px;
+  }
+}
+
+@media (max-width: 767px) {
+  .reservationModule {
+    padding: 60px 0;
+  }
+
+  .iframe {
+    min-height: 600px;
+  }
+}

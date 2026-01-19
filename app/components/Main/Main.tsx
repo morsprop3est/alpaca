@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import styles from "./Main.module.scss";
 import containerStyles from "../../styles/container.module.scss";
 import Input from "../Input/Input";
-import Booking from "../Booking/Booking";
+import BookingModal from "../BookingModal/BookingModal";
 
 interface MainProps {
   id?: string;
@@ -79,7 +79,14 @@ export default function Main({ id }: MainProps) {
             </p>
           </div>
           <div ref={rightRef} className={styles.right}>
-            <div className={styles.bookingHeader}>
+            <div className={styles.bookingWrapper}>
+              <h2 className={styles.bookingHeading}>Забронюйте свій відпочинок</h2>
+              <p className={styles.bookingText}>
+                Оберіть зручні для вас дати, кількість гостей та номер у модулі бронювання. Натисніть кнопку нижче, щоб відкрити форму бронювання.
+              </p>
+              <button className={styles.submitBtn} onClick={() => setIsModalOpen(true)}>Забронювати</button>
+            </div>
+            {/* <div className={styles.bookingHeader}>
               <div className={styles.bookingTitle}>Виберіть дати</div>
               <div className={styles.bookingSubtitle}>Дата заїзду та дата виїзду</div>
             </div>
@@ -111,18 +118,11 @@ export default function Main({ id }: MainProps) {
                 onChange={setGuests}
               />
               <button className={styles.submitBtn} onClick={() => setIsModalOpen(true)}>Замовити</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeBtn} onClick={() => setIsModalOpen(false)}>×</button>
-            <Booking />
-          </div>
-        </div>
-      )}
+      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
 }

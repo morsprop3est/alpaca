@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 999;
   box-shadow: 0 4px 12px rgba(247, 111, 11, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -39,7 +39,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
-  z-index: 2000;
+  z-index: 2001;
   display: flex;
   align-items: center;
   justify-content: center;
