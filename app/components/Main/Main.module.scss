@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  align-items: flex-start;
 }
 
 .location {
@@ -104,30 +105,18 @@
 
 .bookingWrapper {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  flex-direction: row;
+  gap: 16px;
   align-items: center;
-  text-align: center;
   width: 100%;
 }
 
-.bookingHeading {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 48px;
-  color: #fff;
-  margin: 0;
-}
-
-.bookingText {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 32px;
-  color: #fff;
-  margin: 0;
-  max-width: 500px;
+.arrowDown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transform: rotate(90deg);
 }
 
 .bookingHeader {
@@ -180,6 +169,7 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .submitBtn:hover {
@@ -210,6 +200,11 @@
 
   .left {
     gap: 24px;
+    align-items: center;
+  }
+
+  .bookingWrapper {
+    justify-content: center;
   }
 
   .location {
@@ -229,15 +224,6 @@
     gap: 20px;
   }
 
-  .bookingHeading {
-    font-size: 32px;
-    line-height: 40px;
-  }
-
-  .bookingText {
-    font-size: 18px;
-    line-height: 28px;
-  }
 
   .bookingTitle {
     font-size: 32px;
@@ -281,6 +267,12 @@
 
   .left {
     gap: 20px;
+    align-items: center;
+  }
+
+  .bookingWrapper {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .location {
@@ -306,15 +298,6 @@
     gap: 16px;
   }
 
-  .bookingHeading {
-    font-size: 28px;
-    line-height: 36px;
-  }
-
-  .bookingText {
-    font-size: 16px;
-    line-height: 24px;
-  }
 
   .bookingHeader {
     gap: 6px;

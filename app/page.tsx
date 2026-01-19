@@ -1,5 +1,6 @@
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
+import ReservationModule from "./components/ReservationModule/ReservationModule";
 import About from "./components/About/About";
 import Rules from "./components/Rules/Rules";
 import HowToGet from "./components/HowToGet/HowToGet";
@@ -15,6 +16,7 @@ export default function Home() {
       <SplashScreen />
       <Header />
       <Main id="main" />
+      <ReservationModule />
       <About id="about" />
       <Rules id="rules" />
       <HowToGet id="howtoget" />

@@ -5,7 +5,8 @@ import { gsap } from "gsap";
 import styles from "./Main.module.scss";
 import containerStyles from "../../styles/container.module.scss";
 import Input from "../Input/Input";
-import BookingModal from "../BookingModal/BookingModal";
+// import BookingModal from "../BookingModal/BookingModal";
+import Icon from "../Icon/Icon";
 
 interface MainProps {
   id?: string;
@@ -15,14 +16,20 @@ export default function Main({ id }: MainProps) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
+  const arrowRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!leftRef.current || !rightRef.current) return;
+    if (!leftRef.current || !rightRef.current || !buttonRef.current || !arrowRef.current) return;
 
     const tl = gsap.timeline({ delay: 2.5 });
+
+    gsap.set([buttonRef.current, arrowRef.current], {
+      opacity: 0,
+    });
 
     tl.fromTo(
       leftRef.current,
@@ -50,12 +57,68 @@ export default function Main({ id }: MainProps) {
           ease: "power2.out",
         },
         "-=0.4"
-      );
+      )
+      .to(buttonRef.current, {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      })
+      .to(arrowRef.current, {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      }, "-=0.2");
 
     return () => {
       tl.kill();
     };
   }, []);
+
+  useEffect(() => {
+    if (!arrowRef.current) return;
+
+    const arrow = arrowRef.current;
+    gsap.set(arrow, { rotation: 90, transformOrigin: 'center center' });
+    
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+
+    tl.to(arrow, {
+      rotation: 105,
+      duration: 0.15,
+      ease: 'power2.inOut',
+    })
+      .to(arrow, {
+        rotation: 75,
+        duration: 0.15,
+        ease: 'power2.inOut',
+      })
+      .to(arrow, {
+        rotation: 100,
+        duration: 0.1,
+        ease: 'power2.inOut',
+      })
+      .to(arrow, {
+        rotation: 80,
+        duration: 0.1,
+        ease: 'power2.inOut',
+      })
+      .to(arrow, {
+        rotation: 90,
+        duration: 0.15,
+        ease: 'power2.inOut',
+      });
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  const handleBookingClick = () => {
+    const element = document.getElementById('reservation-module');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <main id={id} className={styles.main}>
@@ -77,15 +140,14 @@ export default function Main({ id }: MainProps) {
             <p className={styles.description}>
               Запрошуємо вас на незабутній відпочинок у затишних будиночках серед лісу! Це ідеальне місце для тих, хто мріє втекти від міського шуму, перезавантажитися і насолодитися спокоєм природи.
             </p>
+            <div className={styles.bookingWrapper}>
+              <button ref={buttonRef} className={styles.submitBtn} onClick={handleBookingClick}>Забронювати</button>
+              <div ref={arrowRef} className={styles.arrowDown}>
+                <Icon src="/icons/arrow_right.svg" size={48} color="#fff" />
+              </div>
+            </div>
           </div>
           <div ref={rightRef} className={styles.right}>
-            <div className={styles.bookingWrapper}>
-              <h2 className={styles.bookingHeading}>Забронюйте свій відпочинок</h2>
-              <p className={styles.bookingText}>
-                Оберіть зручні для вас дати, кількість гостей та номер у модулі бронювання. Натисніть кнопку нижче, щоб відкрити форму бронювання.
-              </p>
-              <button className={styles.submitBtn} onClick={() => setIsModalOpen(true)}>Забронювати</button>
-            </div>
             {/* <div className={styles.bookingHeader}>
               <div className={styles.bookingTitle}>Виберіть дати</div>
               <div className={styles.bookingSubtitle}>Дата заїзду та дата виїзду</div>
@@ -122,7 +184,7 @@ export default function Main({ id }: MainProps) {
           </div>
         </div>
       </div>
-      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
     </main>
   );
 }
